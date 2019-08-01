@@ -2,8 +2,7 @@
   "name": "iyoule/php-biz",
   "autoload": {
     "psr-4": {
-      "iyoule\\BizSpace\\": "src/",
-      "Annotation\\": "src/Annotation/"
+      "iyoule\\BizSpace\\": "src/"
     },
     "classmap": [
       "annotation/"
