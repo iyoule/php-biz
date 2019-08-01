@@ -33,8 +33,10 @@ def generate(out, className, fields) {
   out.println ""
   out.println "namespace $packageName"
   out.println ""
+  out.println "use Annotation\BizJson;"
+  out.println "use Annotation\Serialize;"
   out.println ""
-  out.println "class ${className}Biz extends Biz {"
+  out.println "class ${className}Biz extends iyoule\BizSpace\Biz {"
   out.println ""
   fields.each() {
     if (it.annos != "") out.println "    ${it.annos}"
