@@ -109,13 +109,10 @@ class BizConvertArray extends BaseConvert
         if (!is_array_list($source)) {
             throw new SerializeException($throw);
         }
-        $type = substr($type, 0, ++$pos);
         foreach ($source as &$val) {
-            if ($val instanceof Biz) {
-                $values[] = (new self($val))->toArray();
-            } else {
-                $values[] = Convert::from($val)->to($type);
-            }
+            $val = $val instanceof Biz
+                ? (new self($val))->toArray()
+                : Convert::from($val)->to($type);
         }
         return $source;
     }

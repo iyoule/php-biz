@@ -20,4 +20,4 @@ $array = [
 
 $biz = UserBiz::unSerialize($array);
 $data = $biz->serialize();
-var_dump($array, json_encode($data), $biz);
+var_dump($array, json_encode($data),$data, $biz);
