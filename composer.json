@@ -1,5 +1,6 @@
 {
   "name": "iyoule/php-biz",
+  "version": "1.0.0",
   "autoload": {
     "psr-4": {
       "iyoule\\BizSpace\\": "src/"
