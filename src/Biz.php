@@ -9,41 +9,38 @@
 namespace iyoule\BizSpace;
 
 
-use iyoule\BizSpace\Convert\DataTypeConvert;
-use iyoule\BizSpace\Convert\JsonTypeConvert;
-use iyoule\Convert\Convert;
+use iyoule\BizSpace\Convert\ArrayConvertBiz;
+use iyoule\BizSpace\Convert\BizConvertArray;
 
 class Biz
 {
 
     /**
      * @param $data
-     * @return static
+     * @return $this|static|object
      * @throws \ReflectionException
-     * @throws \iyoule\Convert\Exception\ConvertException
      */
-    public static function unSerialize($data)
+    public static function unSerialize(array $data)
     {
-        return Convert::from($data)->to(static::class);
+        return (new ArrayConvertBiz($data))->decode(static::class);
+    }
+
+    /**
+     * @param $object
+     * @return $this|static|object
+     * @throws \ReflectionException
+     */
+    public static function unSerializeByObject($object)
+    {
+        return self::unSerialize(json_decode_encode($object, true));
     }
 
     /**
      * @return array
      * @throws \ReflectionException
      */
-    public function toJsonArray()
+    public function serialize()
     {
-        return (new JsonTypeConvert($this))->toArray();
+        return (new BizConvertArray($this))->decode();
     }
-
-
-    /**
-     * @return array
-     * @throws \ReflectionException
-     */
-    public function toDataArray()
-    {
-        return (new DataTypeConvert($this))->toArray();
-    }
-
 }

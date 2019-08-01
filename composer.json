@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "autoload": {
     "psr-4": {
-      "iyoule\\BizSpace\\": "src/"
+      "iyoule\\BizSpace\\": "src/",
+      "tests\\": "tests/lib/"
     },
     "classmap": [
       "annotation/"
@@ -15,22 +16,23 @@
   "require": {
     "php": ">=7.1.0",
     "iyoule/php-convert": "1.0.1",
-    "iyoule/php-reflection": "1.0"
+    "iyoule/php-reflection": "1.0",
+    "ext-json": "*"
   },
-  "repositories": [
-    {
+  "repositories": {
+    "0": {
       "name": "iyoule/php-convert",
       "type": "vcs",
       "url": "https://github.com/iyoule/php-convert.git"
     },
-    {
+    "1": {
       "name": "iyoule/php-reflection",
       "type": "vcs",
       "url": "https://github.com/iyoule/php-reflection.git"
     },
-    {
+    "packagist": {
       "type": "composer",
       "url": "https://mirrors.aliyun.com/composer/"
     }
-  ]
+  }
 }

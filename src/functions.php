@@ -3,9 +3,6 @@
 namespace iyoule\BizSpace;
 
 
-use iyoule\BizSpace\Convert\DataTypeConvert;
-use iyoule\BizSpace\Convert\JsonTypeConvert;
-
 function format_byValue($format, $value)
 {
     if (is_string($format)) {
@@ -30,22 +27,33 @@ function format_byValue($format, $value)
 
 
 /**
- * @param $biz
- * @return array
- * @throws \ReflectionException
+ * 判断是否不ArrayList数组
+ * @param $array
+ * @return bool
  */
-function biz2json($biz)
+function is_array_list(&$array)
 {
-    return (new JsonTypeConvert($biz))->toArray();
+    if (is_array($array) && empty($array) || isset($array[0])) {
+        $array = array_values($array);
+        return true;
+    }
+    return false;
 }
 
-
-/**
- * @param $biz
- * @return array
- * @throws \ReflectionException
- */
-function biz2db($biz)
+function json_encode_decode($data)
 {
-    return (new DataTypeConvert($biz))->toArray();
+    return json_encode(json_decode($data));
+}
+
+function json_decode_encode($data, $assoc = false)
+{
+    return json_decode(json_encode($data), $assoc);
+}
+
+function str_empty($str)
+{
+    if (empty($str)) {
+        return true;
+    }
+    return strcasecmp($str, 'true') !== 0;
 }

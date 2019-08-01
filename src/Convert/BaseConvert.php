@@ -10,7 +10,7 @@ namespace iyoule\BizSpace\Convert;
 
 
 use iyoule\Reflection\ReflectionAnnotation;
-use iyoule\Reflection\ReflectionObject;
+use iyoule\Reflection\ReflectionClass;
 
 abstract class BaseConvert
 {
@@ -18,9 +18,9 @@ abstract class BaseConvert
     /**
      * @param \Closure $cb
      * @param $annoClassName
-     * @param ReflectionObject $reflect
+     * @param ReflectionClass $reflect
      */
-    protected function map(\Closure $cb, $annoClassName, ReflectionObject $reflect)
+    protected function map(\Closure $cb, $annoClassName, ReflectionClass $reflect)
     {
         foreach ($reflect->getProperties() as $property) {
 
@@ -31,7 +31,7 @@ abstract class BaseConvert
             try {
                 $annotaion = $property->getAnnotation($annoClassName);
             } catch (\Throwable $e) {
-
+                throw $e;
             }
 
             $cb($property, empty($annotaion) ? null : $annotaion);
