@@ -11,6 +11,7 @@ namespace iyoule\BizSpace;
 
 use iyoule\BizSpace\Convert\ArrayConvertBiz;
 use iyoule\BizSpace\Convert\BizConvertArray;
+use iyoule\BizSpace\Convert\BizConvertDbcode;
 
 class Biz
 {
@@ -40,6 +41,24 @@ class Biz
      * @throws \ReflectionException
      */
     public function serialize()
+    {
+        return $this->serialize2array();
+    }
+
+    /**
+     * @return array
+     * @throws \ReflectionException
+     */
+    public function serialize2db()
+    {
+        return (new BizConvertDbcode($this))->decode();
+    }
+
+    /**
+     * @return array
+     * @throws \ReflectionException
+     */
+    public function serialize2array()
     {
         return (new BizConvertArray($this))->decode();
     }
