@@ -61,31 +61,31 @@ class BizConvertDbcode extends BaseConvert
                 if ($serialize->hidden) {
                     return;
                 }
+                if ($value === null) {
+                    if ($serialize->require === true) {
+                        throw new SerializeException(sprintf("property %s::\$%s is required", $className, $name));
+                    }
+                    return;
+                }
+                if ($serialize->type) {
+                    $value = $this->convert2Type(
+                        $value
+                        , $serialize->type
+                        , sprintf("property %s::\$%s must be list-array type", $className, $name)
+                    );
+                }
+
+                if ($serialize->format) {
+                    $value = format_byValue($serialize->format, $value , $this->biz);
+                }
+
+                if (is_bool($value)) {
+                    $value = $value ? '1' : '0';
+                }else if (is_numeric($value)){
+                    $value = (string)$value;
+                }
+
                 foreach ($serialize->field as $item) {
-                    if ($value === null) {
-                        if ($serialize->require === true) {
-                            throw new SerializeException(sprintf("property %s::\$%s is required", $className, $name));
-                        }
-                        return;
-                    }
-                    if ($serialize->type) {
-                        $value = $this->convert2Type(
-                            $value
-                            , $serialize->type
-                            , sprintf("property %s::\$%s must be list-array type", $className, $name)
-                        );
-                    }
-
-                    if ($serialize->format) {
-                        $value = format_byValue($serialize->format, $value , $this->biz);
-                    }
-
-                    if (is_bool($value)) {
-                        $value = $value ? '1' : '0';
-                    }else if (is_numeric($value)){
-                        $value = (string)$value;
-                    }
-
                     $ary[$item] = $value;
                 }
             }
