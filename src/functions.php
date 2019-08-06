@@ -3,17 +3,23 @@
 namespace iyoule\BizSpace;
 
 
-function format_byValue($format, $value)
+function format_byValue($format, $value , $object=null)
 {
     if (is_string($format)) {
         $ary = explode('|', $format);
         foreach ($ary as $cb) {
-            $value = call_user_func(function ($cb, $val) {
+            $value = call_user_func(function ($cb, $val) use($object) {
                 if (strpos($cb, '=') !== false) {
                     list($cb) = $ary = explode('=', $cb);
                     $args = isset($ary[1]) ? explode(',', $ary[1]) : [];
-                    $args = array_map(function ($v) use ($val) {
-                        return $v === '###' ? $val : $v;
+                    $args = array_map(function ($v) use ($val, $object) {
+                        if ($v === '###') {
+                            return $val;
+                        } elseif ($v === '@') {
+                            return $object;
+                        } else {
+                            return $v;
+                        }
                     }, $args);
                 } else {
                     $args = [$val];
