@@ -93,7 +93,7 @@ class ArrayConvertBiz extends BaseConvert
                     }
                 }
                 if ($serialize->format) {
-                    $value = format_byValue($serialize->format, $value);
+                    $value = format_byValue($serialize->format, $value, $that);
                 }
             } else {
                 $value = $source[$property->getName()] ?? null;
@@ -103,6 +103,9 @@ class ArrayConvertBiz extends BaseConvert
             }
             $property->setValue($that, $value);
         }, Serialize::class, $reflect);
+        if (method_exists($that , '_initialize')){
+            $that->_initialize();
+        }
         return $that;
     }
 

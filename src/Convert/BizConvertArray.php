@@ -75,7 +75,7 @@ class BizConvertArray extends BaseConvert
                         );
                     }
                     if ($serialize->format) {
-                        $value = format_byValue($serialize->format, $value);
+                        $value = format_byValue($serialize->format, $value,$this->biz);
                     }
                     $ary[$item] = $value;
                 }
