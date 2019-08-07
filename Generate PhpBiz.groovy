@@ -61,7 +61,7 @@ def generate(out, className, fields) {
     out.println "        return \$this->${it.name};"
     out.println "    }"
     out.println ""
-    out.println "    public function set${it.name.capitalize()}(${it.type} \$${it.name}): void "
+    out.println "    public function set${it.name.capitalize()}(?${it.type} \$${it.name}): void "
     out.println "    {"
     out.println "        \$this->${it.name} = \$${it.name};"
     out.println "    }"
